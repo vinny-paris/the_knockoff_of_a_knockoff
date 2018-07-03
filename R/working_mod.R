@@ -1,12 +1,9 @@
-
-
-t.start <- Sys.time() # record the time we start
-res.cache <- NULL
-res.cache.nrow <- 10000 
-res.cache.idx <- 0
+#Please, Please, Please read "supplemental_readme"
+#in the inst folder. It gives a much better idea
+#of what is happening in this file. 
 
 #directory of stuff
-datadir <- paste0("../Downloads/FemaleLiver-Data/")
+datadir <- paste0("../data/FemaleLiver-Data/")
 
 #get the phenome traits
 phefname <- paste0(datadir, "ClinicalTraits.csv")
@@ -43,6 +40,10 @@ node.resfname <- get.node.resfname(comm.rank())
 
 
 #prep the data frame for the collumns
+res.cache <- NULL
+res.cache.nrow <- 10000 
+res.cache.idx <- 0
+
 res.cache <- data.table(
   phenotype=rep("", res.cache.nrow),
   snp="", est=0.0, se=0.0, p_value=0.0, file = "")
@@ -72,7 +73,7 @@ for (snpfname in snpflist[[comm.rank()+1]]) {
   
   #create the knockoff variables for all snps in the file 
   #have to leave off the "Mice" identifier col though
-  Xko <- create.second_order(as.matrix(snp[,snp[1:198]))
+  Xko <- create.second_order(as.matrix(snp[,snp[1:198]]))
 
 
 
@@ -130,8 +131,3 @@ for (phename in phenames) {
 }
 
 
-q.time <- Sys.time()
-
-#"Time!" (that is suppose to be read as someone finishing a
-#timed task celebratorily)
-t.start - q.time
