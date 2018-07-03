@@ -19,6 +19,8 @@
 #' 
 #' 
 #' @return Same as with the standard knockoff package function 'knockoff.filter', see that for more. 
+#' 
+#' @note This funtion can only be used *after* creating the knockoff variables, the goal was to split those two functions inorder to get a a faster speed up on the loop for response variables with the same explanatory variables.
 
 
 
