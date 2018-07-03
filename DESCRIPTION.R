@@ -1,4 +1,4 @@
-Package: DnD
+Package: my_knockoff
 Type: Package
 Title: A Knockoff of A Knockoff
 Version: 0.1.0
