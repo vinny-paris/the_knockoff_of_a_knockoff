@@ -1,0 +1,12 @@
+Package: DnD
+Type: Package
+Title: A Knockoff of A Knockoff
+Version: 0.1.0
+Author: R Vincent Paris 
+Maintainer: R Vincent Paris <vinny@iastate.edu>
+Description: This package modifies the standard knockoff package slightly to allow for slighlty faster analysis
+License: GPL-2
+Depends: pbdDMAT, pbdMPI, knockoff, data.table
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.0.1
