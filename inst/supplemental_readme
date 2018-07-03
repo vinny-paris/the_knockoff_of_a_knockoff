@@ -1,0 +1,23 @@
+The file working_mod.R is split into two main sections.
+
+First is the data read-in and clean up. The files exist inside the folder data/FemaleLiver-Data. Inside of that, is a csv of the phenotypes and a second folder also entitled data. Inside that folder is the two csv's that hold the genome data. The phenome and genome data can and is combined by the unique identifier "Mice". 
+
+
+The genome files are split according to comm.rank to allow for some parallelization. This is also the beginning point of a loop around the snp files, which are only two in this case, the male mice csv and the female mice csv inside data/FemaleLiver-Data/data folder.
+
+Another step that has to occur in cleaning the data is taking care of the "NA" values. There is a non-trivial amount inside the data frame. While the more standard approach may be to remove the rows with missing observations, the already resticted amount do not make this approach desirable. Alternatively the Expectation-Maximization or other Imputation methods are also not particularly desirable. The EM algorthm simply takes too long for such a large data set and the power of the other faster, more simplistic imputations deteroriates quickly due to the sheer number of missing values; for some explanatory variables the missing rate is well over 50%. As such, the best solution we can come up with for now is to simply delete the columns from the data set that have any amount of NA's. While there is almost surely (non-technical defintion) better methods, that is beyond the scope of the immediate problem at hand and may be an interesting or important point to look at in the future. 
+
+
+After that, there is the creation of the knockoff variables themselves. That step in the knockoff.filter is by far the most time consuming. There is a unique advantage to the Knockoff-X method in that the knockoffs are created only relying on the distribution of the explanatory variables (genomes) and ignores the response variable (phenome). As such, the knockoffs can be created for the entire data set once and then recycled through for each response variable (phenomes). It is important to note that not all phenomes have all mice present so for the specific row of a missing mouse is removed, both from the orginial explanatory variables and the knockoff variables. 
+
+
+Once that is done the code begins the inner loop over all phenotypes presented. It uses a knockoff filter that has been slightly editted (please see the help page for my_kn for more details) to collect the chosen explanatory variables. From there it runs a simple regression model, collects the phenome, parameters estimate, standard errors, p-values, and which file it came from. It then appends that information to the output files. An important note is that we do allow for non-idependence between the chosen explanatory variables so the regression is ran with all explanatory variables present. Marginal analysis only can produce skewed resutls otherwise. If no variable is chosen from the knockoff a simple "No Sig. Expl. Var." message will be returned for that phenome. 
+
+
+
+
+
+
+
+
+
