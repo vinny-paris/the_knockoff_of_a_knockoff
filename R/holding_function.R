@@ -1,15 +1,28 @@
+#' A slightly modified version of the knockoff function
+#' 
+#' 
+#' 2 major differences being that the knockoff variables
+#' are to be passed directly to the function, not made inside
+#' of it; and secondly you can pass the amount of cores wanted
+#' directly to the statistic function chosen. Be careful as this
+#' may need to be 'NULL'-ed if the statistic function you choose
+#' does not allow for multi-cores. 
+#' 
+#' @export
+#' @param expl The data frame to be the explanatory variables, the first col must be "ID"
+#' @param resp The response variable, a matrix the same length as expl The first col must be "ID"
+#' @param Xko The knockoff variables created seperately (see the 'knockoff' package for more details). Also must be the same length as expl, resp.
+#' @param ... Various other arguments to be passed to the my_kn function.
+#' 
+#' @return This will return of data frame 5 columns. The first being phenotype, the signficant variable selected, the estimate of a glm regression, se for standard error of the regression and the p-value. 
+#' 
 
-#function to convert demo to useable on generalized code/data
-
-#resp's first col is identifier
-
-
-holding_function <- function(resp, expl, Xko, offset = 0, fdr = .2){
+holding_function <- function(resp, expl, Xko, offset = 0, fdr = .2, cores = 2){
  
   
   res.cache <- data.table(
     phenotype=rep("", res.cache.nrow),
-    snp="", est=0.0, se=0.0, p_value=0.0, file = "")
+    snp="", est=0.0, se=0.0, p_value=0.0)
   res.cache.idx <- 0
   
   expl_names <- setdiff(names(expl), "ID")
@@ -27,7 +40,7 @@ for (phename in colnames(resp)[-1]){
   covar <- expl[non_missing, -1]
   
   
-  kn <- my_kn(as.matrix(covar), doto, kn_var, offset = 0, fdr = .2)
+  kn <- my_kn(as.matrix(covar), doto, kn_var, ...)
   chosen <- kn$selected
   
   holding <- NULL
