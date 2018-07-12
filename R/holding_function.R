@@ -17,7 +17,7 @@
 #' @return This will return of data frame 5 columns. The first being phenotype, the signficant variable selected, the estimate of a glm regression, se for standard error of the regression and the p-value. 
 #' 
 
-holding_function <- function(resp, expl, Xko, offset = 0, fdr = .2, cores = 2){
+holding_function <- function(resp, expl, Xko, offset = 0, fdr = .2, cores = 2, ...){
  
   
   res.cache <- data.table(
