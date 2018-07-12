@@ -15,7 +15,7 @@
 #' @param statistic The statistic to be used in the variable selection process. Defaults to the difference in coeffiecents for a basic linear model.
 #' @param fdr The False Discovery Rate bounded between (0,1). The default is .1
 #' @param offset Allows for more or less conservative selections. 1 for more (default) , 0 for less. 
-#' @param cores The number of cores you would like ot use. The default is 2. If more is stated than is possible an error will be returned. 
+#' @param cores The number of cores you would like to use. The default is 2. If more is stated than is possible an error will be returned. 
 #' 
 #' 
 #' @return Same as with the standard knockoff package function 'knockoff.filter', see that for more. 
