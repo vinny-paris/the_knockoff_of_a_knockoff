@@ -3,7 +3,7 @@
 #of what is happening in this file. 
 
 #directory of stuff
-datadir <- paste0("../data/FemaleLiver-Data/")
+datadir <- paste0("./data/FemaleLiver-Data/")
 
 #get the phenome traits
 phefname <- paste0(datadir, "ClinicalTraits.csv")
@@ -65,7 +65,8 @@ for (snpfname in snpflist[[comm.rank()+1]]) {
   
   #remove any cols with NA's
   snp <- snp[,!is.na(colSums(snp))]
-  snp$Mice = names(Dit)[-c(1:8)];
+  snp = data.frame(names(Dit)[-c(1:8)], snp)
+  colnames(snp)[1] <- "Mice"
   
   #get names of genes
   snpnames <- setdiff(names(snp), "Mice")
@@ -73,7 +74,7 @@ for (snpfname in snpflist[[comm.rank()+1]]) {
   
   #create the knockoff variables for all snps in the file 
   #have to leave off the "Mice" identifier col though
-  Xko <- create.second_order(as.matrix(snp[,snp[1:198]]))
+  Xko <- create.second_order(as.matrix(snp[,2:199]))
 
 
 
