@@ -19,9 +19,9 @@ t_code1
 
 t_total = timed(t0)[2]
 
-comm.cat(" Section  time\n",
+cat(" Section  time\n",
          "  code1", t_code1, "\n",
          "  code2", t_code2, "\n",
-         "  code3", t_code3, "\n",
+         
          "  total", t_total, "\n",
          "\n", all.rank=TRUE)
