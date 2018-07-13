@@ -29,7 +29,7 @@ holding_function <- function(resp, expl, Xko, offset = 0, fdr = .2, cores = 2, .
   
 for (phename in colnames(resp)[-1]){
   
-  diti <- data.frame(resp[,1], resp[,phename, with = FALSE])
+  diti <- data.frame(resp[,1], resp[,phename])
   colnames(diti) <- c("ID", phename)
   diti <- diti[diti$ID %in% expl$ID,]
   
@@ -53,7 +53,6 @@ for (phename in colnames(resp)[-1]){
     model <- glm( doto ~ as.matrix(expl[,chosen]), family = gaussian(), data = covar, na.action=na.exclude)
     
     result <- as.data.frame(summary(model)$coefficients)[-1,]
-    holding <- rbind(result, holding)
   }
   
   expl_names <- names(chosen)
@@ -74,10 +73,10 @@ for (phename in colnames(resp)[-1]){
   }
   
   
-  
-  
-  
-
+  resp <- re[re$ID %in% expl$ID]
+  expl <- expl[,c(TRUE, !is.na(colSums(expl[,-1])))]
+  Xko <- create.second_order(as.matrix(expl[,c(2:2000)]))
+  holding_function(resp, expl[,1:1999], as.matrix(Xko), fdr = .99, offset = 0) 
 
 
 
