@@ -1,9 +1,8 @@
-Package: my_knockoff
+Package: my.knockoff
 Type: Package
 Title: A Knockoff of A Knockoff
 Version: 0.1.0
-Author: R Vincent Paris 
-Maintainer: R Vincent Paris <vinny@iastate.edu>
+Authors@R: person('R Vincent', 'Paris', email = 'reid.paris@maine.edu', role = c('aut', 'cre'))
 Description: This package modifies the standard knockoff package slightly to allow for slighlty faster analysis
 License: GPL-2
 Depends: pbdDMAT, pbdMPI, knockoff, data.table
