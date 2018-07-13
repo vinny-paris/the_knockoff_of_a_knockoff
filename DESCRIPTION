@@ -7,5 +7,5 @@ Description: This package modifies the standard knockoff package slightly to all
 License: GPL-2
 Depends: pbdDMAT, pbdMPI, knockoff, data.table
 Encoding: UTF-8
-LazyData: true
+LazyData: true 
 RoxygenNote: 6.0.1
