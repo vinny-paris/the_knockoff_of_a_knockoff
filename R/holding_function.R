@@ -9,8 +9,8 @@
 #' does not allow for multi-cores. 
 #' 
 #' @export
-#' @param expl The data frame to be the explanatory variables, the first col must be "ID"
-#' @param resp The response variable, a matrix the same length as expl The first col must be "ID"
+#' @param expl The data frame to be the explanatory variables, the first col must be the identifier 
+#' @param resp The response variable, a matrix the same length as expl The first col must be the identifier
 #' @param Xko The knockoff variables created seperately (see the 'knockoff' package for more details). Also must be the same length as expl, resp.
 #' @param ... Various other arguments to be passed to the my_kn function.
 #' 
@@ -18,7 +18,8 @@
 #' 
 
 holding_function <- function(resp, expl, Xko, offset = 0, fdr = .2, cores = 2, ...){
- 
+  colnames(resp)[1] <- "ID"
+  colnames(expl)[1] <- "ID"
   
   res.cache <- data.table(
     phenotype=rep("", res.cache.nrow),
@@ -40,8 +41,9 @@ for (phename in colnames(resp)[-1]){
   covar <- expl[non_missing, -1]
   
   
-  kn <- my_kn(as.matrix(covar), doto, kn_var, ...)
+  kn <- my_kn((covar), doto, kn_var, offset = 0, fdr = .9)
   chosen <- kn$selected
+  chosen
   
   holding <- NULL
   if(length(chosen) == 0) {
@@ -73,10 +75,6 @@ for (phename in colnames(resp)[-1]){
   }
   
   
-  resp <- re[re$ID %in% expl$ID]
-  expl <- expl[,c(TRUE, !is.na(colSums(expl[,-1])))]
-  Xko <- create.second_order(as.matrix(expl[,c(2:2000)]))
-  holding_function(resp, expl[,1:1999], as.matrix(Xko), fdr = .99, offset = 0) 
 
 
 
