@@ -93,7 +93,7 @@ for (phename in phenames) {
   data <- data[!is.na(data[,2]),]
  
   #Run the knockoff
-  kn <- my_kn(as.matrix(data[,3:200]), y = data[,2], kn_var, offset = 0)
+  kn <- my_kn(as.matrix(data[,3:200]), y = data[,2], kn_var, offset = 0, fdr = .2)
   chosen <- kn$selected
   
   #Ugly function that runs a regression with the knockoff chosen variables
