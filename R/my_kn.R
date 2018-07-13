@@ -25,7 +25,7 @@
 
 
 my_kn <-  function (X, y, Xk = Xk, statistic = stat.glmnet_coefdiff, 
-          fdr = 0.1, offset = 1, cores = 2) {
+          fdr = 0.2, offset = 1, cores = 2) {
   if (is.data.frame(X)) {
     X.names = names(X)
     X = as.matrix(X, rownames.force = F)
