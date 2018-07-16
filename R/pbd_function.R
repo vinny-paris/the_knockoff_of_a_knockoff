@@ -1,4 +1,23 @@
-pbd_kn <- function(dir){
+#'Access to pbdMPI in use of matrix_kn among mulitple files. 
+#'
+#'Major thing is that we are assuming we have a directory with any number of folders. 
+#'Inside each of these folders there needs to be two files,
+#'one called "resp" with the response variables and one called 
+#'"expl" for the explanatory variables. The folders will be divided among
+#'the nodes and each node will do the analysis of it's folders,
+#'recombining them at the end. 
+#'
+#'@export
+#'@param dir This is the directory where the folders (AND ONLY THE FOLDERS) are located
+#'@param ... Any other argument to be passed to the matrix_kn function, and in turn my_kn
+#'
+#'
+#'
+
+
+
+
+pbd_kn <- function(dir, ...){
   
   #get the file list for analysis to be ran on
   files <- list.files(dir, ...)
