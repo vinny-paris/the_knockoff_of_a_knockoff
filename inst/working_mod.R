@@ -3,7 +3,7 @@
 #of what is happening in this file. 
 
 #directory of stuff
-datadir <- paste0("./data/FemaleLiver-Data/")
+datadir <- paste0("./data/")
 
 #get the phenome traits
 phefname <- paste0(datadir, "ClinicalTraits.csv")
@@ -19,7 +19,7 @@ resfname <- paste0(datadir , "result -mpi.csv")
 if(file.exists(resfname)) invisible(file.remove(resfname))
 
 #collect the files the snps are stored in
-snpdir <- paste0(datadir , "data/")
+snpdir <- paste0(datadir)
 snpflist <- list.files(snpdir)
 
 
