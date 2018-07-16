@@ -3,9 +3,9 @@ Type: Package
 Title: A Knockoff of A Knockoff
 Version: 0.1.0
 Authors@R: person('R Vincent', 'Paris', email = 'reid.paris@maine.edu', role = c('aut', 'cre'))
-Description: This package modifies the standard knockoff package slightly to allow for slighlty faster analysis
+Description: This package modifies the standard knockoff package slightly to allow for slighlty faster analysis. It accomplishes this by creating a loop over multiple response vectors while only creating one knockoff variable matrix (assuming the covariates do not change).
 License: GPL-2
-Depends: pbdDMAT, pbdMPI, knockoff, data.table
+Imports: pbdDMAT, pbdMPI, knockoff, data.table
 Encoding: UTF-8
 LazyData: true 
 RoxygenNote: 6.0.1
