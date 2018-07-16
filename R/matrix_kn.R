@@ -21,33 +21,44 @@
 #' 
 
 matrix_kn <- function(resp, expl, Xko, offset = 0, fdr = .2, cores = 2, ...){
+  
+  #relabel the identifiers
   colnames(resp)[1] <- "ID"
   colnames(expl)[1] <- "ID"
   
+  #create storage matrix for results
   res.cache <- data.table(
     phenotype=rep("", res.cache.nrow),
     snp="", est=0.0, se=0.0, p_value=0.0)
   res.cache.idx <- 0
   
+  #get name sof explanatory variables
   expl_names <- setdiff(names(expl), "ID")
   
 for (phename in colnames(resp)[-1]){
   
+  #reduce the response matrix to ID and a single response variable
   diti <- data.frame(resp[,1], resp[,phename])
   colnames(diti) <- c("ID", phename)
+  
+  #correct for missing identifiers
   diti <- diti[diti$ID %in% expl$ID,]
   
-  
+  #Find values in matrix such that we have resps to
   non_missing <- !is.na(diti[,phename])
+  
+  #Collect rows based on above non-missing resp rows
   doto <- diti[non_missing, -1]
   kn_var <- Xko[non_missing,]
   covar <- expl[non_missing, -1]
   
-  
+  #Do the anlaysis and collect the results
   kn <- my_kn((covar), doto, kn_var, offset = 0, fdr = .9)
   chosen <- kn$selected
   chosen
   
+  #Return NA's or run the glm over chosen variables depending on 
+  #which variables (if any) were chosen by my_kn
   holding <- NULL
   if(length(chosen) == 0) {
     result <- t(rep(NA, 4))
@@ -63,7 +74,7 @@ for (phename in colnames(resp)[-1]){
   expl_names <- names(chosen)
   if(length(chosen) == 0) {expl_names <- "No Sig. Expl. Var."}
   
-
+   #Combine results into a single data frame listing resp, expl var., est, se, p-value
   result <- as.matrix(result, ncol = 4)
   for(i in 1:(dim(result)[1])){
     res.cache.idx <- res.cache.idx + 1
