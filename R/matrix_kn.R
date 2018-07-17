@@ -25,8 +25,20 @@
 #'\item{se: } Gives the standard error of the parameter estimate from the glm
 #'\item{p-value: } Gives the p-value associated with that variable estimate from the glm for the null hypothesis the effect magnitude is 0.
 #'}
+#'
+#'@note Cores will be rounded to be a natural number
 
 matrix_kn <- function(resp, expl, Xko, offset = 0, fdr = .2, cores = 2, ...){
+  
+  #error messages
+  if(!all.equal(dim(expl),dim(Xko))) {stop("Xkl and expl are of differing size, please correct!")}
+  if(dim(resp)[1] != dim(expl)[1]) {stop("Response variable and explanatory variable have differing row sizes, please correct!")}
+  if(offset != 1 & offset != 0) {stop("Offset needs to be 1 or 0, please correct!")}
+  if(fdr < 0 | fdr > 1) {stop("False Discovery Rate (fdr) must be between 0, 1 non-inclusive")}
+  if(sum(resp[,1] %in% expl[,1]) == 0) {stop("Improper identifiers, no matches found. Please correct!")}
+  
+  #rounding of cores
+  cores <- round(cores)
   
   #relabel the identifiers
   colnames(resp)[1] <- "ID"
