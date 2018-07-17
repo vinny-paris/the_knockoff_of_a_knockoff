@@ -13,7 +13,7 @@
 #'
 
 bigGER <- function(x, width, length){
-  size <- dim(x)
+  size <- dim(as.data.frame(x))
   
   #error messages
   if (length(size) != 2) {stop("This is only for a two diminensional object")}
@@ -51,7 +51,7 @@ bigGER <- function(x, width, length){
     #find excess length, apply over colums to
     #randomly sample, add on to x
     excess <- length - size[1]
-    new_rows <- apply(x_updated, 2, sample, size = excess, replace = TRUE)
+    new_rows <- apply(as.data.frame(x_updated), 2, sample, size = excess, replace = TRUE)
     x_updated <- rbind(x_updated, new_rows)
     
   } else {
