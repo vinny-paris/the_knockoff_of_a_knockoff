@@ -9,13 +9,21 @@
 #'@param width The number of columns of x you would like, or the "width" if you will
 #'@param length The number of rows of x you would like, or the "length" if you would
 #'@return A matrix with the same data as x of dimension "length" x "width"
-#'
+#'@note Width and length will be rounded if they do not come in as natural numbers
 #'
 
 bigGER <- function(x, width, length){
   size <- dim(x)
-  if (length(size) != 2) {stop("This is only for a two diminensional object")}
   
+  #error messages
+  if (length(size) != 2) {stop("This is only for a two diminensional object")}
+  if (width > 0) {stop("Width must be greater than 0! (that's an exclamation point to show anger, not factorial...)")}
+  if (length > 0) {stop("Length must be greater than 0! (that's an exclamation point to show anger, not factorial...)")}
+  if (!is.numeric(c(width, length))) {stop("We need numbers for width, length")}
+  
+  #round to appopropriate values
+  width <- round(width)
+  length <- round(length)
   
   #growing the columns
   if (width > size[2]) {
@@ -25,7 +33,7 @@ bigGER <- function(x, width, length){
     #sample the colums and attach to original x
     sampled_cols <- sample(1:size[2], excess, replace = TRUE)
     new_cols <- c(1:size[2], sampled_cols)
-    x_updated <- x[,new_cols]
+    x_updated <- x[,new_cols, with = FALSE]
     
     
     
