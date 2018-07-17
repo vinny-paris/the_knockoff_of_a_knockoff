@@ -17,8 +17,14 @@
 #' @param cores The cores to be used in the doMC section of the code, passed to the my_kn function.
 #' @param ... Various other arguments to be passed to the my_kn function.
 #' 
-#' @return This will return of data frame 5 columns. The first being phenotype, the signficant variable selected, the estimate of a glm regression, se for standard error of the regression and the p-value. 
-#' 
+#' @return This will return of data frame 5 columns.
+#'\itemize{
+#'\item{Resp: } What ever response variable was being tested
+#'\item{Expl: } Gives the name of the signficant explanatory variable chosen
+#'\item{Est: } Estimate of the glm model, defaults to normal
+#'\item{se: } Gives the standard error of the parameter estimate from the glm
+#'\item{p-value: } Gives the p-value associated with that variable estimate from the glm for the null hypothesis the effect magnitude is 0.
+#'}
 
 matrix_kn <- function(resp, expl, Xko, offset = 0, fdr = .2, cores = 2, ...){
   
@@ -78,8 +84,8 @@ for (phename in colnames(resp)[-1]){
   result <- as.matrix(result, ncol = 4)
   for(i in 1:(dim(result)[1])){
     res.cache.idx <- res.cache.idx + 1
-    res.cache[res.cache.idx, ] <- list(phenotype = phename, 
-                                       snp = expl_names[i], 
+    res.cache[res.cache.idx, ] <- list(resp = phename, 
+                                       expl = expl_names[i], 
                                        est = result[i,1], 
                                        se = result[i,2], 
                                        p_value = result[i,4])
