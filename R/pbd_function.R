@@ -44,11 +44,11 @@ pbd_kn <- function(dir, ...){
   
   for (file in files[[comm.rank()+1]]) {
     #read in files
-    resp <- fread(paste0(dir , file, "/resp"))
-    expl <- fread(paste0(dir , file, "/expl"))
+    resp <- fread(paste0(dir , file, "/resp.csv"))
+    expl <- fread(paste0(dir , file, "/expl.csv"))
     
     #clean up the expl var
-    expl <- expl[,!is.na(colSum(expl))]
+    expl <- expl[,c(TRUE, !is.na(colSums(expl[,-1])))]
     
     #create knockoff variables
     Xko <- create.second_order(expl)
