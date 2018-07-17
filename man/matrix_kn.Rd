@@ -22,7 +22,14 @@ matrix_kn(resp, expl, Xko, offset = 0, fdr = 0.2, cores = 2, ...)
 \item{...}{Various other arguments to be passed to the my_kn function.}
 }
 \value{
-This will return of data frame 5 columns. The first being phenotype, the signficant variable selected, the estimate of a glm regression, se for standard error of the regression and the p-value.
+This will return of data frame 5 columns.
+\itemize{
+\item{Resp: } What ever response variable was being tested
+\item{Expl: } Gives the name of the signficant explanatory variable chosen
+\item{Est: } Estimate of the glm model, defaults to normal
+\item{se: } Gives the standard error of the parameter estimate from the glm
+\item{p-value: } Gives the p-value associated with that variable estimate from the glm for the null hypothesis the effect magnitude is 0.
+}
 }
 \description{
 2 major differences being that the knockoff variables
@@ -31,4 +38,7 @@ of it; and secondly you can pass the amount of cores wanted
 directly to the statistic function chosen. Be careful as this
 may need to be 'NULL'-ed if the statistic function you choose
 does not allow for multi-cores.
+}
+\note{
+Cores will be rounded to be a natural number
 }

@@ -11,6 +11,17 @@ pbd_kn(dir, ...)
 
 \item{...}{Any other argument to be passed to the matrix_kn function, and in turn my_kn}
 }
+\value{
+One large data frame of 6 columns 
+\itemize{
+\item{Resp: } What ever response variable was being tested
+\item{Expl: } Gives the name of the signficant explanatory variable chosen
+\item{Est: } Estimate of the glm model, defaults to normal
+\item{se: } Gives the standard error of the parameter estimate from the glm
+\item{p-value: } Gives the p-value associated with that variable estimate from the glm for the null hypothesis the effect magnitude is 0.
+\item{file: } Which file the data was used from
+}
+}
 \description{
 Major thing is that we are assuming we have a directory with any number of folders. 
 Inside each of these folders there needs to be two files,
