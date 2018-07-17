@@ -10,9 +10,15 @@
 #'@export
 #'@param dir This is the directory where the folders (AND ONLY THE FOLDERS) are located
 #'@param ... Any other argument to be passed to the matrix_kn function, and in turn my_kn
-#'
-#'
-#'
+#'@return One large data frame of 6 columns 
+#'\itemize{
+#'\item{Resp: } What ever response variable was being tested
+#'\item{Expl: } Gives the name of the signficant explanatory variable chosen
+#'\item{Est: } Estimate of the glm model, defaults to normal
+#'\item{se: } Gives the standard error of the parameter estimate from the glm
+#'\item{p-value: } Gives the p-value associated with that variable estimate from the glm for the null hypothesis the effect magnitude is 0.
+#'\item{file: } Which file the data was used from
+#'}
 
 
 
