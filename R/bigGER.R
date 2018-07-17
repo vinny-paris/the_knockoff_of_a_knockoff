@@ -17,8 +17,8 @@ bigGER <- function(x, width, length){
   
   #error messages
   if (length(size) != 2) {stop("This is only for a two diminensional object")}
-  if (width > 0) {stop("Width must be greater than 0! (that's an exclamation point to show anger, not factorial...)")}
-  if (length > 0) {stop("Length must be greater than 0! (that's an exclamation point to show anger, not factorial...)")}
+  if (width <= 0) {stop("Width must be greater than 0! (that's an exclamation point to show anger, not factorial...)")}
+  if (length <= 0) {stop("Length must be greater than 0! (that's an exclamation point to show anger, not factorial...)")}
   if (!is.numeric(c(width, length))) {stop("We need numbers for width, length")}
   
   #round to appopropriate values
@@ -33,7 +33,7 @@ bigGER <- function(x, width, length){
     #sample the colums and attach to original x
     sampled_cols <- sample(1:size[2], excess, replace = TRUE)
     new_cols <- c(1:size[2], sampled_cols)
-    x_updated <- x[,new_cols, with = FALSE]
+    x_updated <- x[,new_cols]
     
     
     
@@ -59,7 +59,7 @@ bigGER <- function(x, width, length){
     #Randomly showrtens the x matrix, doesn't "scramble"
     #the rows though
     new_rows <- sample(1:(size[1]), length, replace = FALSE)
-    x_updated <- x_updated[new_rows, ]
+    x_updated <- as.data.frame(x_updated)[new_rows, ]
   }
   
   return(x_updated)
