@@ -52,8 +52,9 @@ bigGER <- function(x, width, length){
     #randomly sample, add on to x
     excess <- length - size[1]
     new_rows <- apply(as.data.frame(x_updated), 2, sample, size = excess, replace = TRUE)
-    x_updated <- rbind(x_updated, new_rows)
     
+    if(length(dim(x_updated)) != 0) {x_updated <- rbind(x_updated, new_rows)
+    } else {x_updated <- as.matrix(c(x_updated, new_rows))}
   } else {
     
     #Randomly showrtens the x matrix, doesn't "scramble"
