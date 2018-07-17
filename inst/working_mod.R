@@ -20,8 +20,8 @@ if(file.exists(resfname)) invisible(file.remove(resfname))
 
 #collect the files the snps are stored in
 snpdir <- paste0(datadir)
-snpflist <- list.files(snpdir)
-
+wanted <- grep('Liver', list.files(snpdir))
+snpflist <- list.files(snpdir)[wanted]
 
 #break snp's up 
 if (comm.size() > 1) {
