@@ -66,6 +66,7 @@ ggplot(subset(final, Section == 'code3' & comm_rank == 'rank_1'), aes(interactio
 
 ggplot(subset(final, Section != 'code1' & comm_rank == 'rank_1' ), aes(interaction(mc, blas), time)) + geom_point(aes(col = blas, shape = Section)) + theme(axis.text.x = element_text(angle = 90, hjust = 1))
                                                                                                                                                           
+ggplot(subset(final, Section != 'code1'), aes(interaction(mc, blas), time)) + geom_point(aes(col = blas, shape = Section)) + theme(axis.text.x = element_text(angle = 90, hjust = 1)) + facet_grid(~comm_rank)
 
 
 
