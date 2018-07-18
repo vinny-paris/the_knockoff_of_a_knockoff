@@ -53,7 +53,6 @@ res.cache.idx <- 0
 
 
 
-
 #outer most loop over the snp files (male vs female)
 for (snpfname in snpflist[[comm.rank()+1]]) {
   Dit <- fread(paste0(snpdir , snpfname))
